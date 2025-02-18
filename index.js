@@ -6,14 +6,14 @@ const { extractVwoInfo } = require("./src/extractVwoInfo")
 // List of ecommerce store URLs using VWO
 const urlList = [
   "https://www.anker.com/",
-  //   "https://www.tonal.com/",
-  //   "https://www.rugsusa.com/",
-  //   "https://www.humnutrition.com/",
-  //   "https://www.bragg.com/",
-  //   "https://flyingtiger.com/",
-  //   "https://vessi.com/",
-  //   "https://wineracksamerica.com/",
-  //   "https://onecountry.com/",
+  "https://www.tonal.com/",
+  "https://www.rugsusa.com/",
+  "https://www.humnutrition.com/",
+  "https://www.bragg.com/",
+  "https://flyingtiger.com/",
+  "https://vessi.com/",
+  "https://wineracksamerica.com/",
+  "https://onecountry.com/",
 ]
 
 // MongoDB connection details
