@@ -12,7 +12,7 @@ This project is a web scraper that extracts information from ecommerce stores us
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/vwo-scraper.git
+   git clone https://github.com/javida1492/vwo-scraper.git
    ```
 2. Navigate to the project directory:
    ```sh
