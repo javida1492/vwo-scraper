@@ -1,48 +1,45 @@
-// Import required modules
-const puppeteer = require("puppeteer")
-const { MongoClient } = require("mongodb")
-const { extractVwoInfo } = require("./src/extractVwoInfo")
+import { connectToMongo } from "./src/connectToMongo.js"
+import { launchBrowserInstance } from "./src/launchBrowserInstance.js"
+import { processWebsite } from "./src/processWebsite.js"
 
-// List of ecommerce store URLs using VWO
-const urlList = [
-  "https://www.anker.com/",
-  "https://www.tonal.com/",
-  "https://www.rugsusa.com/",
-  "https://www.humnutrition.com/",
-  "https://www.bragg.com/",
-  "https://flyingtiger.com/",
-  "https://vessi.com/",
-  "https://wineracksamerica.com/",
-  "https://onecountry.com/",
-]
-
-// MongoDB connection details
-const mongoUrl = "mongodb://localhost:27017"
-const dbName = "ecommerceVWO"
-
+/**
+ * Main function to process multiple websites.
+ */
 async function main() {
-  // Connect to MongoDB
-  const client = new MongoClient(mongoUrl, { useUnifiedTopology: true })
-  await client.connect()
-  console.log("Connected to MongoDB")
-  const db = client.db(dbName)
-  const collection = db.collection("vwoTests")
+  // List of websites to process
+  const websites = [
+    "https://www.anker.com/",
+    "https://www.tonal.com/",
+    "https://www.rugsusa.com/",
+    "https://www.humnutrition.com/",
+    "https://www.bragg.com/",
+    "https://flyingtiger.com/",
+    "https://vessi.com/",
+    "https://wineracksamerica.com/",
+    "https://onecountry.com/",
+  ]
 
-  // Launch Puppeteer browser
-  const browser = await puppeteer.launch({ headless: true })
+  // MongoDB connection
+  const uri = "mongodb://localhost:27017" // Adjust your MongoDB URI if needed
+  const { client, collection } = await connectToMongo(
+    uri,
+    "vwoScraperDB",
+    "experiments7"
+  )
 
-  // Process each URL sequentially
-  for (const url of urlList) {
-    const data = await extractVwoInfo(url, browser)
-    if (data) {
-      // Insert the extracted data into MongoDB
-      await collection.insertOne(data)
-      console.log(`Data inserted for ${url}`)
-    }
+  // Launch a single browser instance for efficiency
+  const browser = await launchBrowserInstance()
+
+  // Process each website sequentially
+  for (const targetURL of websites) {
+    await processWebsite(targetURL, browser, collection)
   }
 
-  await browser.close()
   await client.close()
+  await browser.close()
 }
 
-main().catch(console.error)
+// Run the main function when the script is executed.
+main().catch((err) => {
+  console.error("Error in main:", err)
+})
