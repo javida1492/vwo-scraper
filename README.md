@@ -43,7 +43,7 @@ Not being entirely familiar with ways of scraping data, I initially researched o
 - Python-based stack which could be paired with BeautifulSoup or lxml for static pages where the content is directly in the HTML or Selenium with a headless browser if the data is injected via JS.
 - A NodeJS stack utilizing Puppeteer for dynamic pages or Cheerio to fetch and parse static HTML content.
 
-My main source of research was ChatGPT and google but I also reference the VWO API documentation and some stackoverflow posts where users were trying to inject JS into their website via VWO, which gave me better insight into what the JS might look like.
+My main source of research was ChatGPT, the VWO API documentation, abd StackOverflow where I found a few posts showing examples of dynamic JS injection into the page via VWO.
 
 I opted for NodeJS due to stronger familiarity with the language. Likewise, I believe running headless browsers would also be ok as the script could be lifted into serveless functions in AWS or modified to do concurrent processing for all of the websites versus sequential processing. This would allow better throughput BUT would require more system resources.
 
