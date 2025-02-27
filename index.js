@@ -20,7 +20,7 @@ async function main() {
   ]
 
   // MongoDB connection
-  const uri = "mongodb://localhost:27017" // Adjust your MongoDB URI if needed
+  const uri = "mongodb://localhost:27017"
   const { client, collection } = await connectToMongo(
     uri,
     "vwoScraperDB",
@@ -39,7 +39,6 @@ async function main() {
   await browser.close()
 }
 
-// Run the main function when the script is executed.
 main().catch((err) => {
   console.error("Error in main:", err)
 })
